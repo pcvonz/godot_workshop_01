@@ -4,10 +4,10 @@
 
 ###Creating a project
 
-* Click new project on the side, create a new folder and put your project in
+1. Click new project on the side, create a new folder and put your project in
 there.
 
-* Click on your project
+2. Click on your project
 
 ###The editor interface
 
