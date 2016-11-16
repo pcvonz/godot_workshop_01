@@ -286,7 +286,7 @@ There is still an exhaustive amount of features to cover. If you want to stick a
 * Add a shield to the character that faces the direction of the mouse\*\*\*\*
 	* `get_mouse_pos()`
 	* `Vector2` has a useful method: `angle_to()`
-	* To get an vector from an angle: 
+	* To get a vector from an angle: 
 		* Vector.x = cos(angle) 
 		* Vector.y = sin(angle)
 		* You may need to adjust angle_to, compare where the shield is pointing and where you want it to point (I had to add `-PI/2`)
