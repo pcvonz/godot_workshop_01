@@ -172,10 +172,9 @@ func _ready():
 
 func _process(delta):
 	if(ray.is_colliding() and not ray.get_collider() == null):
-		#We need to duplicate the arrow object, we'll be firing multiple 
-arrows from this
+		#We need to duplicate the arrow object, we'll be firing multiple
 		var temp_arrow = arrow.duplicate()
-		#Add the new arrow as a child to the to our arrow trap scene
+		#Add the duplicate arrow as a child of our trap
 		add_child(temp_arrow)
 		#Orient our arrow in the world
 		temp_arrow.set_global_pos(arrow_pos)
@@ -216,8 +215,7 @@ func _ready():
 func _process(delta):
 	time_elapsed += delta #Delta is the change in time between every frame, if we add these up we get the total time elapsed
 	if(ray.is_colliding() and not ray.get_collider() == null and 
-time_elapsed > shoot_speed): #Add a test to see if it's time shoot another arrow
-arrows from this
+time_elapsed > shoot_speed): #Add a test to see if it's time shoot another
 		var temp_arrow = arrow.duplicate()
 		add_child(temp_arrow)
 		temp_arrow.set_global_pos(arrow_pos)
@@ -234,8 +232,38 @@ Now, on the line where we checked if time_elapsed was greater than shoot\_speed,
 
 ```python
 	if(ray.is_colliding() and not ray.get_collider() == null and 
-time_elapsed > shoot_speed and ray.get_collider().is_in_group("players")): #add 
-a check for group
+time_elapsed > shoot_speed and ray.get_collider().is_in_group("players")): #add a check for group
 ```
 
-There! The arrows now only fire when the ray detects the player.
+There! The arrows now only fire when the ray detects the player. Now.. wouldn't it be cool if the player lost health and eventually died? That would actually make this somewhat of a game. 
+
+##UI And Deleting nodes
+
+The cool thing about Godot, is that the whole editor is actually written in Godot. So, the UI stuff needed to be solid. Navigate to the level scene and add a `Progres Bar`, name it "health". Turn off the visiblity of the percent (unless you want it). And then in the Range category make it something reasonable, like 5 perhaps. Then, change the value (which will be our health) to 5. Now, let's add code to our arrows to do damage to our character. Navigate to the arrow scene and with the arrow selected, turn on the `Contact Monitor` and set `Contacts Reported` to 1. Now add a script to the object. 
+
+```python
+
+extends RigidBody2D
+
+var health
+func _ready():
+	connect("body_enter", self, "damage")
+	health = get_node("../../health") #../ is equivalent to get_parent()
+	
+func damage(body):
+	if(body.is_in_group("players")):
+		if(health.get_value() > 0):
+			health.set_value(health.get_value() - 1) #Takes a 
+damage!
+		else:
+			if(get_linear_velocity().length() > 50):
+				body.queue_free() #Remove the node from the 
+scene tree
+
+
+
+
+
+```
+
+
