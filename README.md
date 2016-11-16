@@ -143,44 +143,100 @@ Now, I think it'd be great if our player got pelted with something right as they
 
 By now you should know the drill. Create a new scene add a `Node2D` rename it to arrow trap. Add a `RayCast2D` and a `Position2D` as children. 
 
-In the inspector of the ray set the Cast To variable to (200, 0), untick "rigid body" in the type mask, and turn the ray on by ticking "enable". Now let's create our arrow object. Save this as "trap"
+In the inspector of the ray set the `Cast To` variable to (200, 0), untick "rigid body" in the `Type Mask`, and turn the ray on by ticking "enable". Save this scene as "arrow_trap". 
 
-Now create another new scene and add a `RigidBody2D` and a `Sprite` and `CollisionShape2D` as children. In the sprite, load the arrow image. For the collision shape, add a rectangle shape and match it up to the arrow. 
+Now create another new scene and add a `RigidBody2D` and a `Sprite` and `CollisionShape2D` as children. In the sprite, load the arrow image. For the collision shape, add a rectangle shape and match it up to the arrow.  Save this scene as "arrow"
 
 Now the code: 
 
 ```python
+
+
 extends Node2D
 
 var ray
-var fired = false
 var arrow
 var arrow_pos
 var time_elapsed = 0
-var shoot_speed = 1
-export var arrow_speed = 500
+var arrow_speed = 500
 var arrow_rot = 0
-
 
 func _ready():
 	set_process(true)
+	#Loading the arrow scene we just creeated
+	arrow = preload("res://arrow.tscn").instance()	
+	#set up our convenience variables
 	ray = get_node("RayCast2D")
-	arrow = preload("res://arrow.tscn").instance()
 	arrow_pos = get_node("Position2D").get_global_pos()
 	arrow_rot = arrow.get_rot()
-	
+
 func _process(delta):
-	time_elapsed += delta
-	var wr = weakref(arrow)
+	if(ray.is_colliding() and not ray.get_collider() == null):
+		#We need to duplicate the arrow object, we'll be firing 
+multiple 
+arrows from this
+		var temp_arrow = arrow.duplicate()
+		#Add the new arrow as a child to the to our arrow trap scene
+		add_child(temp_arrow)
+		#Orient our arrow in the world
+		temp_arrow.set_global_pos(arrow_pos)
+		temp_arrow.set_rot(arrow_rot)
+		#Fire in the correct direction
+		temp_arrow.set_linear_velocity(Vector2(cos(get_rot()), 
+sin(-get_rot()))*arrow_speed)
+```
+
+Now to test it! Instance the arrow_trap into our level and place it in a position where our unwitting protagonist will encounter it. 
+
+That didn't work as expected did it? There are a few problems we need to address:
+
+* Limit the amount of arrows that are fired. Right now it's firing every frame draw.
+* Make it so the arrow only fires at our character. 
+
+Let's adjust our code! (changes are commented)
+
+```python
+
+extends Node2D
+var ray
+var arrow
+var arrow_pos
+var arrow_speed = 500
+var arrow_rot = 0
+
+var shoot_speed = 1 #The delay between arrows
+var time_elapsed = 0 # Adding variable for total time elapsed
+
+func _ready():
+	set_process(true)
+	arrow = preload("res://arrow.tscn").instance()	
+	ray = get_node("RayCast2D")
+	arrow_pos = get_node("Position2D").get_global_pos()
+	arrow_rot = arrow.get_rot()
+
+func _process(delta):
+	time_elapsed += delta #Delta is the change in time between every frame, if we add these up we get the total time elapsed
 	if(ray.is_colliding() and not ray.get_collider() == null and 
-ray.get_collider().is_in_group("players") and time_elapsed > shoot_speed and 
-wr.get_ref()):
+time_elapsed > shoot_speed): #Add a test to see if it's time shoot another arrow
+arrows from this
 		var temp_arrow = arrow.duplicate()
 		add_child(temp_arrow)
 		temp_arrow.set_global_pos(arrow_pos)
 		temp_arrow.set_rot(arrow_rot)
 		temp_arrow.set_linear_velocity(Vector2(cos(get_rot()), 
 sin(-get_rot()))*arrow_speed)
-		time_elapsed = 0
+		time_elapsed = 0 #reset the timer
 ```
 
+
+It's getting there, but we still haven't addressed the issue of when to fire the arrow. This is where groups come in. Navigate to your player scene. Next to the inspector tab you'll notice another tab called "groups". Add the parent node (named player) to the group "players".
+
+Now, on the line where we checked if time_elapsed was greater than shoot\_speed, add: `and ray.get_collider().is_in_group("players")` . So the whole statment should look like this:
+
+```python
+	if(ray.is_colliding() and not ray.get_collider() == null and 
+time_elapsed > shoot_speed and ray.get_collider().is_in_group("players")): #add 
+a check for group
+```
+
+There! The arrows now only fire when the ray detects the player.
