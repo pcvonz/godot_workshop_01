@@ -132,12 +132,55 @@ func open_door(body):
 
 func close_door(body):
 	if not anim.is_playing():
-		anim.play_backwards("anim")
+		anim.play_backwards("anim", .2) #the .2 is for blend time, makes it blend with the open animation
 
 </code>
 
 That's a pretty solid door!
 
-##Rays, RigidBodies, oh my!
+##Rays, RigidBodies, and groups oh my!
 
-Now, I think it'd be great if our player got pelted with something right as they went through that door. 
+Now, I think it'd be great if our player got pelted with something right as they went through the door we just made.
+
+By now you should know the drill. Create a new scene add a `Node2D` rename it to arrow trap. Add a `RayCast2D` and a `Position2D` as children. 
+
+In the inspector of the ray set the Cast To variable to (200, 0), untick "rigid body" in the type mask, and turn the ray on by ticking "enable". Now let's create our arrow object. Save this as "trap"
+
+Now create another new scene and add a `RigidBody2D` and a `Sprite` and `CollisionShape2D` as children. In the sprite, load the arrow image. For the collision shape, add a rectangle shape and match it up to the arrow. 
+
+Now the code: 
+<code>
+extends Node2D
+
+var ray
+var fired = false
+var arrow
+var arrow_pos
+var time_elapsed = 0
+var shoot_speed = 1
+export var arrow_speed = 500
+var arrow_rot = 0
+
+
+func _ready():
+	set_process(true)
+	ray = get_node("RayCast2D")
+	arrow = preload("res://arrow.tscn").instance()
+	arrow_pos = get_node("Position2D").get_global_pos()
+	arrow_rot = arrow.get_rot()
+	
+func _process(delta):
+	time_elapsed += delta
+	var wr = weakref(arrow)
+	if(ray.is_colliding() and not ray.get_collider() == null and 
+ray.get_collider().is_in_group("players") and time_elapsed > shoot_speed and 
+wr.get_ref()):
+		var temp_arrow = arrow.duplicate()
+		add_child(temp_arrow)
+		temp_arrow.set_global_pos(arrow_pos)
+		temp_arrow.set_rot(arrow_rot)
+		temp_arrow.set_linear_velocity(Vector2(cos(get_rot()), 
+sin(-get_rot()))*arrow_speed)
+		time_elapsed = 0
+</code>
+
