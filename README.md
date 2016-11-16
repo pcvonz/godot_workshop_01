@@ -107,18 +107,18 @@ Before we connect our signals let's add an `Area2D` as the child of our Wall. Ad
 
 Now right click the Wall node and add a script to it. Add to the ready function:
 
-<code>
+```python
 func _ready():
 	get_node("Area2D").connect("body_enter", self, "open_door")
 	
 func 	open_door(body):
 	get_node("AnimationPlayer").play("anim")
-</code>
+```
 
 Now let's navigate back to the level scene and instance our new door. Play the scene and test it out. You might notice a few oddities, if the player leaves the area and enters it again the door restarts the animation from the top. Let's fix that.
 
-<code>
-\# For convenience
+```python
+# For convenience
 var anim
 
 func _ready():
@@ -133,8 +133,7 @@ func open_door(body):
 func close_door(body):
 	if not anim.is_playing():
 		anim.play_backwards("anim", .2) #the .2 is for blend time, makes it blend with the open animation
-
-</code>
+```
 
 That's a pretty solid door!
 
@@ -149,7 +148,8 @@ In the inspector of the ray set the Cast To variable to (200, 0), untick "rigid 
 Now create another new scene and add a `RigidBody2D` and a `Sprite` and `CollisionShape2D` as children. In the sprite, load the arrow image. For the collision shape, add a rectangle shape and match it up to the arrow. 
 
 Now the code: 
-<code>
+
+```python
 extends Node2D
 
 var ray
@@ -182,5 +182,5 @@ wr.get_ref()):
 		temp_arrow.set_linear_velocity(Vector2(cos(get_rot()), 
 sin(-get_rot()))*arrow_speed)
 		time_elapsed = 0
-</code>
+```
 
