@@ -172,8 +172,7 @@ func _ready():
 
 func _process(delta):
 	if(ray.is_colliding() and not ray.get_collider() == null):
-		#We need to duplicate the arrow object, we'll be firing 
-multiple 
+		#We need to duplicate the arrow object, we'll be firing multiple 
 arrows from this
 		var temp_arrow = arrow.duplicate()
 		#Add the new arrow as a child to the to our arrow trap scene
