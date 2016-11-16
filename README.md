@@ -257,8 +257,7 @@ func damage(body):
 damage!
 		else:
 			if(get_linear_velocity().length() > 50):
-				body.queue_free() #Remove the node from the 
-scene tree
+				body.queue_free() #Remove the node from the scene tree
 
 
 
