@@ -180,7 +180,7 @@ func _ready():
 	arrow = preload("res://arrow.tscn").instance()	
 	#set up our convenience variables
 	ray = get_node("RayCast2D")
-	arrow_pos = get_node("Position2D").get_global_pos()
+	arrow_pos = get_node("Position2D").get_pos()
 	arrow_rot = arrow.get_rot()
 
 # This function will run every frame
@@ -191,7 +191,7 @@ func _process(delta):
 		#Add the duplicate arrow as a child of our trap
 		add_child(temp_arrow)
 		#Orient our arrow in the world
-		temp_arrow.set_global_pos(arrow_pos)
+		temp_arrow.set_pos(arrow_pos)
 		temp_arrow.set_rot(arrow_rot)
 		#Fire in the correct direction
 		temp_arrow.set_linear_velocity(Vector2(cos(get_rot()), 
@@ -223,7 +223,7 @@ func _ready():
 	set_process(true)
 	arrow = preload("res://arrow.tscn").instance()	
 	ray = get_node("RayCast2D")
-	arrow_pos = get_node("Position2D").get_global_pos()
+	arrow_pos = get_node("Position2D").get_pos()
 	arrow_rot = arrow.get_rot()
 
 func _process(delta):
@@ -232,7 +232,7 @@ func _process(delta):
 time_elapsed > shoot_speed): #Add a test to see if it's time to shoot
 		var temp_arrow = arrow.duplicate()
 		add_child(temp_arrow)
-		temp_arrow.set_global_pos(arrow_pos)
+		temp_arrow.set_pos(arrow_pos)
 		temp_arrow.set_rot(arrow_rot)
 		temp_arrow.set_linear_velocity(Vector2(cos(get_rot()), 
 sin(-get_rot()))*arrow_speed)
