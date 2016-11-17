@@ -158,7 +158,7 @@ Now, I think it'd be great if our player got pelted with something right as they
 
 By now you should know the drill. Create a new scene add a `Node2D` rename it to something sensible like "arrow trap". Add a `RayCast2D` and a `Position2D` as children. 
 
-In the inspector of the ray set the `Cast To` variable to (200, 0), untick "rigid body" in the `Type Mask`, and turn the ray on by ticking "enable". Save this scene as "arrow_trap". 
+In the inspector of the ray set the `Cast To` variable to (-200, 0), untick "rigid body" in the `Type Mask`, and turn the ray on by ticking "enable". Save this scene as "arrow_trap". 
 
 Now create another new scene and add a `RigidBody2D` and a `Sprite` and `CollisionShape2D` as children. In the sprite, load the arrow image. For the collision shape, add a rectangle shape and match it up to the arrow.  Save this scene as "arrow"
 
@@ -275,11 +275,14 @@ damage!
 
 ```
 
-##Where to now?
+##Extra credit!
 
 There is still an exhaustive amount of features to cover. If you want to stick around I recommend adding a few things to this game:
 
 * Add a health pickup *
+* Add a node that makes the player "win" when the player collides with it \*\*
+	* You might want to use a Label
+	* Or investigate [scene switching](http://docs.godotengine.org/en/stable/tutorials/step_by_step/scene_tree.html#changing-current-scene)
 * Add a menu screen (look in the docs for [scene switching](http://docs.godotengine.org/en/stable/tutorials/step_by_step/scene_tree.html#changing-current-scene) **
 * Try creating your own kinematic character through the previously mentioned [tutorial](http://docs.godotengine.org/en/stable/tutorials/2d/kinematic_character_2d.html) \*\**
 	* Use the `button` signals. 
