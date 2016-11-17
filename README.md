@@ -171,9 +171,8 @@ extends Node2D
 var ray
 var arrow
 var arrow_pos
-var time_elapsed = 0
 var arrow_speed = 500
-var arrow_rot = 0
+var arrow_rot
 
 func _ready():
 	set_process(true) #process is a builtin function that runs every frame
