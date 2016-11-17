@@ -277,7 +277,7 @@ damage!
 
 ##Extra credit!
 
-There is still an exhaustive amount of features to cover. If you want to stick around I recommend adding a few things to this game:
+There is still an exhaustive amount of features to cover, I recommend adding a few things to this game. You can either stick around and complete these, or do them at home.
 
 * Add a health pickup *
 * Add a node that makes the player "win" when the player collides with it \*\*
