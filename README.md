@@ -283,6 +283,7 @@ There is still an exhaustive amount of features to cover. If you want to stick a
 * Add a health pickup *
 * Add a menu screen (look in the docs for [scene switching](http://docs.godotengine.org/en/stable/tutorials/step_by_step/scene_tree.html#changing-current-scene) **
 * Try creating your own kinematic character through the previously mentioned [tutorial](http://docs.godotengine.org/en/stable/tutorials/2d/kinematic_character_2d.html) \*\**
+	* Use the `button` signals. 
 * Add a shield to the character that faces the direction of the mouse\*\*\*\*
 	* `get_mouse_pos()`
 	* `Vector2` has a useful method: `angle_to()`
