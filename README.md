@@ -20,7 +20,7 @@ If you're trying to run Godot on a Mac that you don't have admin privileges on, 
 
 Before we create a new node, let's learn some vocab. 
 
-* A node is the basic element for creating games in Godot. 
+* A node is the basic element for creating a game in Godot. 
 * Scenes are compositions of Nodes. 
 
 ![scene](http://docs.godotengine.org/en/stable/_images/tree.png)
