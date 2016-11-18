@@ -9,7 +9,7 @@ Clone or download this repository (upper right green button) and grab a copy of 
 If you're trying to run Godot on a Mac that you don't have admin privileges on, follow these steps:
 
 1. Open up a terminal
-2. type: `cd Downloads/godot.app/Contents/MacoOS` (or wherever you downloaded Godot.
+2. type: `cd ~/Downloads/Godot.app/Contents/MacOS` (or wherever you downloaded Godot.
 3. Type `./Godot`. Godot should open up.
 
 ##The editor
