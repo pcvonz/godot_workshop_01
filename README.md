@@ -42,6 +42,7 @@ Some useful useful shortcuts:
 * Shift + arrow keys moves an object 10 pixels. 
 * For real precision, use the inspector to set scale, position, rotation, etc. 
 * Locking objects is also useful for cluttered scenes. Definitely recommend locking your `TileMap`.
+* Shift and drag will move an object along the x or y axis
 
 ##Creating a tilemap
 
