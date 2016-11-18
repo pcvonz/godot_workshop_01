@@ -46,7 +46,7 @@ Some useful useful shortcuts:
 
 ##Creating a tilemap
 
-Select the `Sprite` node and add child to it.This time we'll add a `StaticBody2D`. There are two other types of physics bodies in Godot, we'll go over them later.
+Select the `Sprite` node and add a child to it. This time we'll add a `StaticBody2D`. There are two other types of physics bodies in Godot, we'll go over them later.
 
 Now, with the `StaticBody2D` selected add a `CollisionObject2D` to the scene. Something slightly confusing about this object is that it's really only present in the editor. It's used as a helper object for editing and positioning collision shapes. 
 
@@ -112,7 +112,7 @@ In Godot we use a built in scripting language called gdscript which is syntactic
 
 ###The Class docs
 
-In the scripting view you can bring up the class documentation at anytime. Let's bring up the documentation for an Area2D. In the top pane of the scripting view click "Classes" and then search for `Area2D`. The Area2D node is used to for area detection (think: is there something in here?). Scroll down to the Signals list, what important to us is the `body_enter` and `body_exit` signals. Body refers to the physics bodies: kinematic, rigid, and static. 
+In the scripting view you can bring up the class documentation at anytime. Let's bring up the documentation for an Area2D. In the top pane of the scripting view click "Classes" and then search for `Area2D`. The Area2D node is used for area detection (think: "is there something in here?"). Scroll down to the Signals list, what important to us is the `body_enter` and `body_exit` signals. Body refers to the physics bodies: kinematic, rigid, and static. 
 
 ###Signals
 
@@ -127,7 +127,7 @@ func _ready():
 	# connect our signal to this node (self) and make it run the function "open door"
 	get_node("Area2D").connect("body_enter", self, "open_door")
 	
-func 	open_door(body):
+func open_door(body):
 	# Play our open door animation
 	get_node("AnimationPlayer").play("anim")
 ```
