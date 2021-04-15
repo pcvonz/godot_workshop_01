@@ -1,10 +1,10 @@
-#Godot Workshop
+# Godot Workshop
 
-##Preparation
+## Preparation
 
 Clone or download this repository (upper right green button) and grab a copy of [godot](http://godotengine.org). 
 
-###Note:
+### Note:
 
 If you're trying to run Godot on a Mac that you don't have admin privileges on, follow these steps:
 
@@ -12,11 +12,11 @@ If you're trying to run Godot on a Mac that you don't have admin privileges on, 
 2. type: `cd ~/Downloads/Godot.app/Contents/MacOS` (or wherever you downloaded Godot.
 3. Type `./Godot`. Godot should open up.
 
-##The editor
+## The editor
 
-###The editor interface
+### The editor interface
 
-####Create a new node
+#### Create a new node
 
 Before we create a new node, let's learn some vocab. 
 
@@ -33,7 +33,7 @@ Now let's add a sprite to the scene. Click the plus button again and add a `Spri
 
 Below the scene outliner there is a panel labeled `Inspector`. With the sprite node selected, navigate to the row labeled texture and click where it says `<null>` . Load the image "wall.png". 
 
-###Navigating in the editor window
+### Navigating in the editor window
 
 Some useful useful shortcuts:
 
@@ -44,7 +44,7 @@ Some useful useful shortcuts:
 * Locking objects is also useful for cluttered scenes. Definitely recommend locking your `TileMap`.
 * Shift and drag will move an object along the x or y axis
 
-##Creating a tilemap
+## Creating a tilemap
 
 Select the `Sprite` node and add a child to it. This time we'll add a `StaticBody2D`. There are two other types of physics bodies in Godot, we'll go over them later.
 
@@ -64,7 +64,7 @@ scene > new scene
 
 Add Node2D as the base again. Underneath Node2D add a `TileMap`. In the inspector set the Tile Set to the file you just exported. In the inspector of the `TileMap` set the size of the to 16x16. Then, with the TileSet selected start drawing in the editor!
 
-##Kinematic Character
+## Kinematic Character
 
 So, for the sake of brevity we will be using the code from the Kinematic character tutorial. If you'd like to learn more about how to construct one of these yourself, then reference [this page in the documentation.](http://docs.godotengine.org/en/stable/tutorials/2d/kinematic_character_2d.html)
 
@@ -80,7 +80,7 @@ Lock the TileMap so we wont accidentally click it in the editor window and then 
 
 The player falls down and nothing else happens. The cool thing about this is that this scene is still editable, if you navigate back to the player scene and make the player double the size, those changes will reflect on all scenes where the player is instanced. This is really great for working collaboratively and since Godot was made to be used with version control it makes using services like github very easy.
 
-##Setting up controls
+## Setting up controls
 
 You'll notice that your player doesn't move when you use the arrow keys. Let's investigate this a little bit. Navigate to the player scene. Click the script icon next to the player node. on line 36-38 we have our problem. Godot is looking for the actions "move_left", "move_right", and "jump", but we haven't added those to the input list yet. 
 
@@ -92,7 +92,7 @@ Open up the project settings. Scene > Project Settings. Navigate to the Input Ma
 
 Scroll down to where are new actions have been added. Click the plus button on the right and assign some controls to them. Now try playing the level scene. Navigate to the level scene and press the play scene button. We have a moving character!
 
-##Animating a door
+## Animating a door
 
 Let's create a simple door animation. First create a new scene and then add a `Node2D` and name it "door". Underneath the door add a `Sprite` and a `KinematicBody2D`. Underneath the `KinematicBody2D` add a `CollisionShape2D`  with a rectangle shape to it. Load the same wall image into the `Sprite`. 
 
@@ -104,17 +104,17 @@ Select the door node and click the key symbol next to `Position` in the inspecto
 
 **Sidenote:** Are you curious as to why we had to input a negative number to make it go up? That's because the top left corner is our origin (0,0) going down and right increases both numbers. 
 
-##Scripting
+## Scripting
 
 So, now is the part where some of you might get lost. Until this point, we were able to mostly avoid scripting. If you have never programmed before, don't fret, Godot is not a bad place to start. 
 
 In Godot we use a built in scripting language called gdscript which is syntactically similar to Python. The Godot developers implemented Lua, Python, and Squirrel in the past but found that building their own custom language was faster and more efficient. [More on that in the docs.](http://docs.godotengine.org/en/stable/reference/gdscript.html) 
 
-###The Class docs
+### The Class docs
 
 In the scripting view you can bring up the class documentation at anytime. Let's bring up the documentation for an Area2D. In the top pane of the scripting view click "Classes" and then search for `Area2D`. The Area2D node is used for area detection (think: "is there something in here?"). Scroll down to the Signals list, what important to us is the `body_enter` and `body_exit` signals. Body refers to the physics bodies: kinematic, rigid, and static. 
 
-###Signals
+### Signals
 
 Before we connect our signals let's add an `Area2D` as the child of our door. Add a `CollisionShape2D` underneath the `Area2D` and make it look like so:
 
@@ -153,7 +153,7 @@ func close_door(body):
 
 That's a pretty solid door!
 
-##Rays, RigidBodies, and groups oh my!
+## Rays, RigidBodies, and groups oh my!
 
 Now, I think it'd be great if our player got pelted with something right as they went through the door we just made.
 
@@ -252,7 +252,7 @@ time_elapsed > shoot_speed and ray.get_collider().is_in_group("players")): #add 
 
 There! The arrows now only fire when the ray detects the player. Now.. wouldn't it be cool if the player lost health and eventually died? That would actually make this somewhat of a game. 
 
-##UI And Deleting nodes
+## UI And Deleting nodes
 
 Navigate to the level scene and add a `Progres Bar`. Name the progress bar "health", turn off the visiblity of the percent (unless you want it). And then in the `Range` category set `max` to something reasonable, like 5 perhaps. Then, change the `value` (which will be our current health) to 5. Now, let's add code to our arrows to do damage to our character. Navigate to the arrow scene and with the arrow selected, turn on the `Contact Monitor` and set `Contacts Reported` to 1. Now add a script to the object. 
 
@@ -276,7 +276,7 @@ damage!
 
 ```
 
-##Extra credit!
+## Extra credit!
 
 There is still an exhaustive amount of features to cover, I recommend adding a few things to this game. You can either stick around and complete these, or do them at home.
 
